@@ -310,7 +310,7 @@ const Home = () => {
               </div>
 
               <div className="lg:w-2/5 ">
-                <img className="w-4/5 mx-auto" src={img18} alt="" />
+                <img className="w-[75%] mx-auto" src={img18} alt="" />
               </div>
             </article>
           </SwiperSlide>
