@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import img1 from "../shared/assets/images/Icon-Google.png";
 import { useSignUpMutation } from "../entities/allApi";
@@ -7,21 +7,23 @@ import { useTranslation } from "react-i18next";
 const Signup = () => {
   const { t } = useTranslation();
   const [signUp] = useSignUpMutation();
+  const navigate = useNavigate();
 
-  let [userName, setUserName] = useState("");
-  let [userPhone, setUserPhone] = useState("");
-  let [userEmail, setUserEmail] = useState("");
-  let [userPassword, setUserPassword] = useState("");
-  let [userConfirmPassword, setUserConfirmPassword] = useState("");
-  let navigate = useNavigate();
-  async function register() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data) => {
     try {
       const newUser = {
-        userName: userName,
-        phoneNumber: userPhone,
-        email: userEmail,
-        password: userPassword,
-        confirmPassword: userConfirmPassword,
+        userName: data.userName,
+        phoneNumber: data.userPhone,
+        email: data.userEmail,
+        password: data.userPassword,
+        confirmPassword: data.userConfirmPassword,
       };
 
       await signUp(newUser).unwrap();
@@ -30,67 +32,73 @@ const Signup = () => {
     } catch (err) {
       console.error("Registration failed", err);
     }
-  }
+  };
 
   return (
     <div className="py-20 lg:py-10">
       <section className="lg:w-1/4 w-4/5 mx-auto">
-        <p className="text-[24px] lg:text-[36px] font-semibold">
-          {t("Signup.1")}
-        </p>
+        <p className="text-[24px] lg:text-[36px] font-semibold">{t("Signup.1")}</p>
         <p className="text-[16px] text-black">{t("Signup.2")}</p>
 
-        <div className="flex flex-col gap-2 py-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 py-5">
           <input
-            required
             className="py-1 px-2 rounded border border-[#0000003B]"
-            type="text"
             placeholder={t("Signup.3")}
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
+            {...register("userName", { required: true })}
           />
+          {errors.userName && <span className="text-red-500 text-sm">{t("Signup.errors.name")}</span>}
+
           <input
-            required
             className="py-1 px-2 rounded border border-[#0000003B]"
-            type="text"
             placeholder={t("Signup.4")}
-            value={userPhone}
-            onChange={(e) => setUserPhone(e.target.value)}
+            {...register("userPhone", {
+              required: true,
+              pattern: /^[0-9]+$/,
+            })}
           />
+          {errors.userPhone && <span className="text-red-500 text-sm">{t("Signup.errors.phone")}</span>}
+
           <input
-            required
             className="py-1 px-2 rounded border border-[#0000003B]"
             type="email"
             placeholder={t("Signup.5")}
-            value={userEmail}
-            onChange={(e) => setUserEmail(e.target.value)}
+            {...register("userEmail", {
+              required: true,
+              maxLength: 30,
+            })}
           />
+          {errors.userEmail && <span className="text-red-500 text-sm">{t("Signup.errors.email")}</span>}
+
           <input
-            required
             className="py-1 px-2 rounded border border-[#0000003B]"
             type="password"
             placeholder={t("Signup.6")}
-            value={userPassword}
-            onChange={(e) => setUserPassword(e.target.value)}
+            {...register("userPassword", {
+              required: true,
+              minLength: 4,
+            })}
           />
+          {errors.userPassword && <span className="text-red-500 text-sm">{t("Signup.errors.password")}</span>}
+
           <input
-            required
             className="py-1 px-2 rounded border border-[#0000003B]"
             type="password"
             placeholder={t("Signup.7")}
-            value={userConfirmPassword}
-            onChange={(e) => setUserConfirmPassword(e.target.value)}
+            {...register("userConfirmPassword", {
+              required: true,
+              validate: (value) => value === watch("userPassword"),
+            })}
           />
+          {errors.userConfirmPassword && (
+            <span className="text-red-500 text-sm">{t("Signup.errors.confirmPassword")}</span>
+          )}
 
-          <button
-            className="px-10 py-3 rounded bg-[#DB4444] text-white"
-            onClick={register}
-          >
+          <button type="submit" className="px-10 py-3 rounded bg-[#DB4444] text-white">
             {t("Signup.8")}
           </button>
 
-          <button className="px-10 py-3 border border-[#0000003B] rounded flex items-center gap-2 justify-center">
-            <img src={img1} alt="" /> {t("Signup.9")}
+          <button type="button" className="px-10 py-3 border border-[#0000003B] rounded flex items-center gap-2 justify-center">
+            <img src={img1} alt="Google" /> {t("Signup.9")}
           </button>
 
           <p className="text-center">
@@ -99,7 +107,7 @@ const Signup = () => {
               {t("Signup.11")}
             </Link>
           </p>
-        </div>
+        </form>
       </section>
     </div>
   );

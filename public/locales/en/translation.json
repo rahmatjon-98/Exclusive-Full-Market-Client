@@ -18,7 +18,9 @@
     "loginBtn": "Log In",
     "noAccount": "Don't have an account?",
     "signupLink": "Sign Up",
-    "error": "Username or password wrong! Please try again."
+    "error": "Username or password wrong! Please try again.",
+    "usernameError": "Maximum 30 characters for email",
+    "passwordError": "Password must be at least 4 characters"
   },
 
   "Layout": {
@@ -155,7 +157,14 @@
     "8": "Create Account",
     "9": "Sign up with Google",
     "10": "Already have account?",
-    "11": "Login"
+    "11": "Login",
+    "errors": {
+      "name": "Name is required",
+      "phone": "Phone must contain only digits",
+      "email": "Enter a valid email (max 30 characters)",
+      "password": "Password must be at least 4 characters",
+      "confirmPassword": "Passwords do not match"
+    }
   },
 
   "About": {
