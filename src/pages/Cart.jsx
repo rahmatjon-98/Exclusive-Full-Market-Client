@@ -84,7 +84,25 @@ const Cart = () => {
                 </Link>
               </div>
 
-              <div className="lg:order-0 order-3 ">${e.product.price}</div>
+              <div className="lg:order-0 order-3 ">
+                {e.product.hasDiscount ? (
+                  <div className="flex gap-2 items-end">
+                    <span className="text-base font-semibold text-[#DB4444]">
+                      ${e.product.discountPrice}
+                    </span>
+
+                    {e.product.hasDiscount && (
+                      <p className="text-xs font-semibold text-gray-500 line-through">
+                        ${e.product.price}
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  <p className="text-base font-semibold text-[]">
+                    ${e.product.price}
+                  </p>
+                )}
+              </div>
 
               <div className="lg:order-0 order-2 flex items-center border rounded overflow-hidden w-fit">
                 <button
@@ -103,12 +121,22 @@ const Cart = () => {
               </div>
 
               <p className="hidden">
-                {(subtotal += e.quantity * e.product.price)}
+                {
+                  (subtotal +=
+                    e.quantity *
+                    (e.product.hasDiscount
+                      ? e.product.discountPrice
+                      : e.product.price))
+                }
               </p>
 
               <div className="lg:order-0 order-4 flex justify-between">
                 <div className="font-semibold">
-                  ${e.quantity * e.product.price}
+                  $
+                  {e.quantity *
+                    (e.product.hasDiscount
+                      ? e.product.discountPrice
+                      : e.product.price)}
                 </div>
 
                 <button

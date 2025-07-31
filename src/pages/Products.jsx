@@ -140,7 +140,13 @@ const Products = () => {
                   <div className="flex items-center justify-center bg-[#F5F5F5] rounded lg:w-full h-[250px] relative group">
                     {e.hasDiscount && (
                       <span className="bg-[#DB4444] text-white px-4 py-1 rounded absolute top-3 left-3">
-                        {e.discountPrice}
+                        -
+                        {e.discountPrice > 0
+                          ? Math.round(
+                              ((e.price - e.discountPrice) / e.price) * 100
+                            )
+                          : 0}
+                        %
                       </span>
                     )}
 
@@ -171,22 +177,37 @@ const Products = () => {
 
                     <button
                       onClick={() => handleAddToCart(e.id)}
-                      className="text-white bg-black w-full p-1 absolute bottom-0 hidden group-hover:block"
+                      className="text-white bg-black w-full p-1 absolute bottom-0 lg:hidden lg:group-hover:block"
                     >
                       {t("Products.38")}
                     </button>
                   </div>
 
-                  <p className="text-base font-medium">{e.productName}</p>
+                  <p className="text-2xl font-medium">{e.productName}</p>
+                  <p className="font-bold ">
+                    {data && data.data.brands.brandName}
+                  </p>
 
-                  <div className="flex items-center gap-2.5">
-                    <p className="text-base font-medium text-[#DB4444]">
-                      {e.price}
+                  {!e.hasDiscount && (
+                    <p className="text-2xl font-semibold text-[#DB4444]">
+                      ${e.price}
                     </p>
-                    <p className="text-base font-medium text-gray-500 line-through">
-                      $160
-                    </p>
-                  </div>
+                  )}
+                  <div className="flex items-center gap-2.5"></div>
+
+                  {e.hasDiscount && (
+                    <div className="flex gap-5 items-end">
+                      <span className="text-2xl font-semibold text-[#DB4444]">
+                        ${e.discountPrice}
+                      </span>
+
+                      {e.hasDiscount && (
+                        <p className="text-base font-semibold text-gray-500 line-through">
+                          ${e.price}
+                        </p>
+                      )}
+                    </div>
+                  )}
 
                   <div className="flex items-center gap-2 text-base font-medium text-gray-500">
                     <img src={img4} alt="" /> (88)

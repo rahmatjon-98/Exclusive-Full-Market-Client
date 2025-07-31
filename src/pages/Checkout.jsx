@@ -141,9 +141,9 @@ const Checkout = () => {
                   />
                   <span>{e.product.productName}</span>
                 </div>
-                <span>${e.product.price * e.quantity}</span>
+                <span>${(e.product.hasDiscount ? e.product.discountPrice : e.product.price) * e.quantity}</span>
                 <p className="hidden">
-                  {(subtotal += e.product.price * e.quantity)}
+                  {(subtotal += (e.product.hasDiscount ? e.product.discountPrice : e.product.price) * e.quantity)}
                 </p>
               </div>
             ))}
