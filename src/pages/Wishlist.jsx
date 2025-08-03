@@ -109,7 +109,7 @@ const Wishlist = () => {
                     e.image ? e.image : e.images[0].images
                   }`}
                   alt=""
-                  className="w-full h-[250px] object-cover"
+                  className="w-full h-[250px] object-contain"
                 />
 
                 <button
@@ -129,7 +129,7 @@ const Wishlist = () => {
               </div>
 
               <div className="flex items-center gap-2 text-base font-medium text-gray-500">
-                <img src={img4} alt="" /> (88)
+                <img loading="lazy" src={img4} alt="" /> (88)
               </div>
             </div>
           ))
@@ -144,7 +144,7 @@ const Wishlist = () => {
           </Link>
         </div>
 
-        <article className="flex overHidden overflow-x-scroll gap-5 py-10">
+        <article className="flex overHidden  overflow-x-scroll  gap-5 py-10">
           {data &&
             data.data.products.map((e) => {
               const isInWishList = wishList.some((item) => item.id === e.id);
@@ -189,7 +189,7 @@ const Wishlist = () => {
                     <img
                       src={`https://store-api.softclub.tj/images/${e.image}`}
                       alt=""
-                      className="w-[100%] h-[250px] object-cover"
+                      className="w-[100%] h-[250px] object-contain"
                     />
 
                     <button
@@ -227,7 +227,7 @@ const Wishlist = () => {
                   )}
 
                   <div className="flex items-center gap-2 text-base font-medium text-gray-500">
-                    <img src={img4} alt="" /> (88)
+                    <img loading="lazy" src={img4} alt="" /> (88)
                   </div>
                 </div>
               );

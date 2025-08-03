@@ -37,16 +37,25 @@ const Signup = () => {
   return (
     <div className="py-20 lg:py-10">
       <section className="lg:w-1/4 w-4/5 mx-auto">
-        <p className="text-[24px] lg:text-[36px] font-semibold">{t("Signup.1")}</p>
+        <p className="text-[24px] lg:text-[36px] font-semibold">
+          {t("Signup.1")}
+        </p>
         <p className="text-[16px] text-black">{t("Signup.2")}</p>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 py-5">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-2 py-5"
+        >
           <input
             className="py-1 px-2 rounded border border-[#0000003B]"
             placeholder={t("Signup.3")}
             {...register("userName", { required: true })}
           />
-          {errors.userName && <span className="text-red-500 text-sm">{t("Signup.errors.name")}</span>}
+          {errors.userName && (
+            <span className="text-red-500 text-sm">
+              {t("Signup.errors.name")}
+            </span>
+          )}
 
           <input
             className="py-1 px-2 rounded border border-[#0000003B]"
@@ -56,7 +65,11 @@ const Signup = () => {
               pattern: /^[0-9]+$/,
             })}
           />
-          {errors.userPhone && <span className="text-red-500 text-sm">{t("Signup.errors.phone")}</span>}
+          {errors.userPhone && (
+            <span className="text-red-500 text-sm">
+              {t("Signup.errors.phone")}
+            </span>
+          )}
 
           <input
             className="py-1 px-2 rounded border border-[#0000003B]"
@@ -67,7 +80,11 @@ const Signup = () => {
               maxLength: 30,
             })}
           />
-          {errors.userEmail && <span className="text-red-500 text-sm">{t("Signup.errors.email")}</span>}
+          {errors.userEmail && (
+            <span className="text-red-500 text-sm">
+              {t("Signup.errors.email")}
+            </span>
+          )}
 
           <input
             className="py-1 px-2 rounded border border-[#0000003B]"
@@ -78,7 +95,11 @@ const Signup = () => {
               minLength: 4,
             })}
           />
-          {errors.userPassword && <span className="text-red-500 text-sm">{t("Signup.errors.password")}</span>}
+          {errors.userPassword && (
+            <span className="text-red-500 text-sm">
+              {t("Signup.errors.password")}
+            </span>
+          )}
 
           <input
             className="py-1 px-2 rounded border border-[#0000003B]"
@@ -90,15 +111,23 @@ const Signup = () => {
             })}
           />
           {errors.userConfirmPassword && (
-            <span className="text-red-500 text-sm">{t("Signup.errors.confirmPassword")}</span>
+            <span className="text-red-500 text-sm">
+              {t("Signup.errors.confirmPassword")}
+            </span>
           )}
 
-          <button type="submit" className="px-10 py-3 rounded bg-[#DB4444] text-white">
+          <button
+            type="submit"
+            className="px-10 py-3 rounded bg-[#DB4444] text-white"
+          >
             {t("Signup.8")}
           </button>
 
-          <button type="button" className="px-10 py-3 border border-[#0000003B] rounded flex items-center gap-2 justify-center">
-            <img src={img1} alt="Google" /> {t("Signup.9")}
+          <button
+            type="button"
+            className="px-10 py-3 border border-[#0000003B] rounded flex items-center gap-2 justify-center"
+          >
+            <img loading="lazy" src={img1} alt="Google" /> {t("Signup.9")}
           </button>
 
           <p className="text-center">

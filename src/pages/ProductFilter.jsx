@@ -27,14 +27,14 @@ const ProductFilter = ({ onFilterChange }) => {
 
   const handleApplyFilter = useCallback(() => {
     onFilterChange({
-      brands: selectedBrands,
+      // brands: selectedBrands,
       categories: selectedCategories,
       subCategories: selectedSubCategories,
       priceRange: priceRange,
     });
   }, [
     onFilterChange,
-    selectedBrands,
+    // selectedBrands,
     selectedCategories,
     selectedSubCategories,
     priceRange,
@@ -43,8 +43,8 @@ const ProductFilter = ({ onFilterChange }) => {
   return (
     <div className="space-y-6 p-4">
       <div className="space-y-3">
-        <h3 className="font-bold text-base">{t("Products.brand")}</h3>
-        <div className="space-y-1 flex lg:flex-col flex-row gap-5 flex-wrap">
+        {/* <h3 className="font-bold text-base">{t("Products.brand")}</h3> */}
+        {/* <div className="space-y-1 flex lg:flex-col flex-row gap-5 flex-wrap">
           {brands?.data?.map((brand) => (
             <label key={brand.id} className="flex items-center space-x-2">
               <input
@@ -62,7 +62,7 @@ const ProductFilter = ({ onFilterChange }) => {
               <span>{brand.brandName}</span>
             </label>
           ))}
-        </div>
+        </div> */}
       </div>
 
       <div className="space-y-2">

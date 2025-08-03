@@ -8,7 +8,6 @@ import {
 import HeadSection from "../shared/ui/headSection";
 import img1 from "../shared/assets/images/Five star.png";
 import img2 from "../shared/assets/images/2.jpeg";
-import img4 from "../shared/assets/images/3.jpg";
 import React, { useEffect, useState } from "react";
 import {
   useAddToCartMutation,
@@ -89,6 +88,12 @@ const Info = () => {
     updateCartCount();
   };
 
+  const InfoAddToCart = async (productId) => {
+    await addToCart(productId);
+    refetch();
+    updateCartCount();
+  };
+
   async function incProduct(id) {
     await inc(id);
     refetch();
@@ -118,52 +123,55 @@ const Info = () => {
   };
 
   const isInWishList = wishList.some((item) => item.id === data2?.data?.id);
+  let [ImageUrl, setImageUrl] = useState(null);
+
+  useEffect(() => {
+    setImageUrl(
+      `https://store-api.softclub.tj/images/${data2?.data?.images[0]?.images}`
+    );
+  }, [data2]);
 
   if (isLoading || !data2?.data)
     return <p className="text-center py-10">Loading...</p>;
 
   return (
-    <div className="px-[5%] lg:px-[10%] py-10">
+    <div className="px-[5%] lg:px-[10%] py-14">
       <div className="flex flex-col justify-between lg:flex-row gap-10">
-        <div className="w-[55%] flex gap-2.5 ">
-          <div className="flex flex-col gap-2">
-            {[1, 2, 3, 4].map((e, i) => (
-              <div key={i}>
-                {data2.data.images.map((e) => (
-                  <div
-                    key={e.id}
-                    className="w-25 h-25  rounded border border-[#F5F5F5] bg-[#F5F5F5]"
-                  >
-                    <img
-                      src={`https://store-api.softclub.tj/images/${e.images}`}
-                      alt={data2.data.productName}
-                      className="w-full h-full object-cover rounded "
-                    />
-                  </div>
-                ))}
+        <div className="lg:w-[55%] flex lg:flex-row flex-col-reverse gap-2.5 ">
+          <div className="grid lg:grid-cols-1 grid-cols-4 gap-5">
+            {data2.data.images.map((e) => (
+              <div
+                onClick={() =>
+                  setImageUrl(
+                    `https://store-api.softclub.tj/images/${e.images}`
+                  )
+                }
+                key={e.id}
+                className="lg:w-25 w-20 lg:h-25 h-20 p-2  rounded border border-[#F5F5F5] bg-[#F5F5F5]"
+              >
+                <img
+                  src={`https://store-api.softclub.tj/images/${e.images}`}
+                  alt={data2.data.productName}
+                  className="w-full h-full object-contain rounded "
+                />
               </div>
             ))}
           </div>
 
-          {data2.data.images.map((e) => (
-            <div
-              key={e.id}
-              className="w-8/10 rounded flex items-center justify-center border border-[#F5F5F5] bg-[#F5F5F5] "
-            >
-              <img
-                src={`https://store-api.softclub.tj/images/${e.images}`}
-                alt={data2.data.productName}
-                className="object-cover"
-              />
-            </div>
-          ))}
+          <div className="lg:w-8/10 rounded flex items-center justify-center border border-[#F5F5F5] bg-[#F5F5F5] ">
+            <img
+              src={ImageUrl}
+              alt={data2.data.productName}
+              className="object-cover"
+            />
+          </div>
         </div>
 
-        <div className="w-[45%] space-y-2">
+        <div className="lg:w-[45%] space-y-2">
           <h1 className="text-2xl font-semibold">{data2.data.productName}</h1>
 
           <div className="flex items-center gap-2 text-gray-500 font-medium">
-            <img src={img1} alt="" />
+            <img loading="lazy" src={img1} alt="" />
             (88)
             <p className="text-sm">{t("Info.2")}</p>
             <span className="text-black">| |</span>
@@ -186,7 +194,7 @@ const Info = () => {
             <p className="text-sm font-medium">{data2.data.brandName}</p>
           </div>
 
-          <div className="flex flex-col lg:flex-row items-center gap-5">
+          <div className="flex flex-row lg:items-center gap-2 lg:gap-5">
             <div className="lg:order-0 order-2 flex items-center border rounded overflow-hidden w-fit">
               <button
                 className="px-3 py-1 text-xl"
@@ -205,14 +213,14 @@ const Info = () => {
 
             <button
               onClick={() => handleAddToCart(data2.data.id)}
-              className="bg-[#DB4444] text-white px-20 py-2 rounded lg:order-0 order-3"
+              className="bg-[#DB4444] text-white px-5 lg:px-20 py-2 rounded lg:order-0 order-3"
             >
               {t("Info.7")}
             </button>
 
             <button
               onClick={() => toggleWish(data2.data)}
-              className="bg-white rounded border border-[#00000080] p-1 "
+              className="bg-white rounded border border-[#00000080] p-1 order-3"
             >
               <Heart
                 strokeWidth={1}
@@ -224,7 +232,7 @@ const Info = () => {
 
           <div className="space-y-2">
             <div className="mt-4 border rounded p-4 flex items-center gap-2">
-              <img src={"img1"} alt="" />
+              <img loading="lazy" src={"img1"} alt="" />
               <div>
                 <p className="font-medium">{t("Info.8")}</p>
                 <p className="text-sm text-gray-500">{t("Info.9")}</p>
@@ -232,7 +240,7 @@ const Info = () => {
             </div>
 
             <div className="border rounded p-4 flex items-center gap-2">
-              <img src={"img2"} alt="" />
+              <img loading="lazy" src={"img2"} alt="" />
               <div>
                 <p className="font-medium">{t("Info.10")}</p>
                 <p className="text-sm text-gray-500">
@@ -250,74 +258,94 @@ const Info = () => {
       <section className="pt-10">
         <HeadSection name={t("Info.13")} />
 
-        <div className="flex gap-5 overflow-x-scroll overHidden justify-between py-10">
-          {data?.data?.products.map((e) => {
-            const isInWishList = wishList.some((item) => item.id === e.id);
+        <div className="flex gap-5  overflow-x-scroll  overHidden justify-between py-10">
+          {data &&
+            data.data.products.map((e) => {
+              const isInWishList = wishList.some((item) => item.id === e.id);
 
-            return (
-              <div
-                key={e.id}
-                className="space-y-3 basis-auto shrink-0 grow-0 lg:w-[25%] w-full"
-              >
-                <div className="flex items-center justify-center bg-[#F5F5F5] rounded lg:w-full h-[250px] relative group">
+              return (
+                <div
+                  key={e.id}
+                  className="space-y-3 basis-auto shrink-0 grow-0 lg:w-[25%] w-full"
+                >
+                  <div className="flex items-center justify-center bg-[#F5F5F5] rounded lg:w-full h-[250px] relative group">
+                    {e.hasDiscount && (
+                      <span className="bg-[#DB4444] text-white px-4 py-1 rounded absolute top-3 left-3">
+                        -
+                        {e.discountPrice > 0
+                          ? Math.round(
+                              ((e.price - e.discountPrice) / e.price) * 100
+                            )
+                          : 0}
+                        %
+                      </span>
+                    )}
+
+                    <button
+                      onClick={() => toggleWish(e)}
+                      className="bg-white rounded-full p-1 absolute top-3 right-3"
+                    >
+                      <Heart
+                        strokeWidth={1}
+                        fill={!isInWishList ? "white" : "#ef4444"}
+                        className={
+                          !isInWishList ? "text-black" : "text-[#ef4444]"
+                        }
+                      />
+                    </button>
+
+                    <Link to={`/info/${e.id}`}>
+                      <button className="bg-white rounded-full p-1 absolute top-14 right-3">
+                        <Eye strokeWidth={1.5} />
+                      </button>
+                    </Link>
+
+                    <img
+                      src={`https://store-api.softclub.tj/images/${e.image}`}
+                      alt=""
+                      className="w-[100%] h-[250px] object-contain"
+                    />
+
+                    <button
+                      onClick={() => InfoAddToCart(e.id)}
+                      className="text-white bg-black w-full p-1 absolute bottom-0 lg:hidden lg:group-hover:block"
+                    >
+                      {t("Products.38")}
+                    </button>
+                  </div>
+
+                  <p className="text-2xl font-medium">{e.productName}</p>
+                  <p className="font-bold ">
+                    {data && data.data.brands.brandName}
+                  </p>
+
+                  {!e.hasDiscount && (
+                    <p className="text-2xl font-semibold text-[#DB4444]">
+                      ${e.price}
+                    </p>
+                  )}
+                  <div className="flex items-center gap-2.5"></div>
+
                   {e.hasDiscount && (
-                    <span className="bg-[#DB4444] text-white px-4 py-1 rounded absolute top-3 left-3">
-                      {e.discountPrice}
-                    </span>
+                    <div className="flex gap-5 items-end">
+                      <span className="text-2xl font-semibold text-[#DB4444]">
+                        ${e.discountPrice}
+                      </span>
+
+                      {e.hasDiscount && (
+                        <p className="text-base font-semibold text-gray-500 line-through">
+                          ${e.price}
+                        </p>
+                      )}
+                    </div>
                   )}
 
-                  <button
-                    onClick={() => toggleWish(e)}
-                    className="bg-white rounded-full p-1 absolute top-3 right-3"
-                  >
-                    <Heart
-                      strokeWidth={1}
-                      fill={!isInWishList ? "white" : "#ef4444"}
-                      className={
-                        !isInWishList ? "text-black" : "text-[#ef4444]"
-                      }
-                    />
-                  </button>
-
-                  <Link to={`/info/${e.id}`}>
-                    <button className="bg-white rounded-full p-1 absolute top-14 right-3">
-                      <Eye strokeWidth={1.5} />
-                    </button>
-                  </Link>
-
-                  <img
-                    src={`https://store-api.softclub.tj/images/${e.image}`}
-                    alt=""
-                    className="w-[100%] h-[250px] object-cover"
-                  />
-
-                  <button
-                    onClick={() => handleAddToCart(e.id)}
-                    className="text-white bg-black w-full p-1 absolute bottom-0 hidden group-hover:block"
-                  >
-                    {t("Products.38")}
-                  </button>
+                  <div className="flex items-center gap-2 text-base font-medium text-gray-500">
+                    <img loading="lazy" src={img1} alt="" /> (88)
+                  </div>
                 </div>
-
-                <p className="text-base font-medium">{e.productName}</p>
-
-                <div className="flex items-center gap-2.5">
-                  <p className="text-base font-medium text-[#DB4444]">
-                    {e.price}
-                  </p>
-                  {/* {e.hasDiscount && (
-                    <span className="bg-[#DB4444] text-white px-4 py-1 rounded absolute top-3 left-3">
-                      {e.discountPrice}
-                    </span>
-                  )} */}
-                </div>
-
-                <div className="flex items-center gap-2 text-base font-medium text-gray-500">
-                  <img src={img1} alt="" /> (88)
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </section>
     </div>

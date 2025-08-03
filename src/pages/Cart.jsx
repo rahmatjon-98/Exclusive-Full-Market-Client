@@ -75,7 +75,7 @@ const Cart = () => {
                 <img
                   src={`https://store-api.softclub.tj/images/${e.product.image}`}
                   alt="LCD Monitor"
-                  className="w-16 h-16 object-cover"
+                  className="w-16 h-16 object-contain"
                 />
                 <Link to={`/info/${e.product.id}`}>
                   <span className="font-medium hover:text-blue-500 hover:underline">

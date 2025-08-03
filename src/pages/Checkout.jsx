@@ -57,7 +57,7 @@ const Checkout = () => {
           <p>{t("Cart.1")}</p>
         </Link>
         <p>/</p>
-        <Link to={'/cart'}>
+        <Link to={"/cart"}>
           <p>{t("Checkout.2")}</p>
         </Link>
         <p>/</p>
@@ -141,9 +141,19 @@ const Checkout = () => {
                   />
                   <span>{e.product.productName}</span>
                 </div>
-                <span>${(e.product.hasDiscount ? e.product.discountPrice : e.product.price) * e.quantity}</span>
+                <span>
+                  $
+                  {(e.product.hasDiscount
+                    ? e.product.discountPrice
+                    : e.product.price) * e.quantity}
+                </span>
                 <p className="hidden">
-                  {(subtotal += (e.product.hasDiscount ? e.product.discountPrice : e.product.price) * e.quantity)}
+                  {
+                    (subtotal +=
+                      (e.product.hasDiscount
+                        ? e.product.discountPrice
+                        : e.product.price) * e.quantity)
+                  }
                 </p>
               </div>
             ))}
@@ -192,10 +202,15 @@ const Checkout = () => {
             </div>
 
             <div className="flex gap-5">
-              <img src={img1} alt="Bkash" className="h-6 mt-2" />
-              <img src={img2} alt="Visa" className="h-6 mt-2" />
-              <img src={img3} alt="Mastercard" className="h-6 mt-2" />
-              <img src={img4} alt="Nagad" className="h-6 mt-2" />
+              <img loading="lazy" src={img1} alt="Bkash" className="h-6 mt-2" />
+              <img loading="lazy" src={img2} alt="Visa" className="h-6 mt-2" />
+              <img
+                loading="lazy"
+                src={img3}
+                alt="Mastercard"
+                className="h-6 mt-2"
+              />
+              <img loading="lazy" src={img4} alt="Nagad" className="h-6 mt-2" />
             </div>
           </div>
 

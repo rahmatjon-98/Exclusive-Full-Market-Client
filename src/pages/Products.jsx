@@ -24,9 +24,9 @@ const Products = () => {
   const filterParams = useMemo(() => {
     const params = {};
 
-    if (filters.brands.length > 0) {
-      params.brandIds = filters.brands.join(",");
-    }
+    // if (filters.brands.length > 0) {
+    //   params.brandIds = filters.brands.join(",");
+    // }
 
     if (filters.categories.length > 0) {
       params.categoryId = filters.categories[0];
@@ -172,7 +172,7 @@ const Products = () => {
                     <img
                       src={`https://store-api.softclub.tj/images/${e.image}`}
                       alt=""
-                      className="w-[100%] h-[250px] object-cover"
+                      className="w-[100%] h-[250px] object-contain"
                     />
 
                     <button
@@ -210,7 +210,7 @@ const Products = () => {
                   )}
 
                   <div className="flex items-center gap-2 text-base font-medium text-gray-500">
-                    <img src={img4} alt="" /> (88)
+                    <img loading="lazy" src={img4} alt="" /> (88)
                   </div>
                 </div>
               );

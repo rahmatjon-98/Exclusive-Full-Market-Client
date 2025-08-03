@@ -58,7 +58,6 @@ const Home = () => {
   const { t } = useTranslation();
 
   const scrollRef = useRef(null);
-  console.log(scrollRef.current);
 
   function scrollRight() {
     if (scrollRef.current) {
@@ -88,9 +87,9 @@ const Home = () => {
   const { data: data2 } = useGetCategoryQuery();
   const { updateWishlistCount, updateCartCount } = useAppState();
 
-  // useEffect(() => {
-  //   refetch();
-  // }, []);
+  useEffect(() => {
+    refetch();
+  }, []);
 
   const [addToCart] = useAddToCartMutation();
   const [message, setMessage] = useState("");
@@ -200,7 +199,7 @@ const Home = () => {
               <div className="p-8">
                 <div className="flex items-center gap-3">
                   <div className="w-1/10">
-                    <img src={img1} alt="" />
+                    <img loading="lazy" src={img1} alt="" />
                   </div>
                   <p className="text-[18px]">{t("Section1.iPhone14")}</p>
                 </div>
@@ -214,7 +213,7 @@ const Home = () => {
                 </p>
               </div>
               <div className="lg:w-2/5">
-                <img src={img2} alt="" />
+                <img loading="lazy" src={img2} alt="" />
               </div>
             </article>
           </SwiperSlide>
@@ -223,7 +222,7 @@ const Home = () => {
               <div className="p-8">
                 <div className="flex items-center gap-3">
                   <div className="w-1/10">
-                    <img src={img1} alt="" />
+                    <img loading="lazy" src={img1} alt="" />
                   </div>
                   <p className="text-[18px]">{t("Section1.SmartWatches")}</p>
                 </div>
@@ -238,7 +237,7 @@ const Home = () => {
               </div>
 
               <div className="lg:w-2/5">
-                <img src={img15} alt="" />
+                <img loading="lazy" src={img15} alt="" />
               </div>
             </article>
           </SwiperSlide>
@@ -247,7 +246,7 @@ const Home = () => {
               <div className="p-8">
                 <div className="flex items-center gap-3">
                   <div className="w-1/10">
-                    <img src={img1} alt="" />
+                    <img loading="lazy" src={img1} alt="" />
                   </div>
                   <p className="text-[18px]">{t("Section1.Laptops")}</p>
                 </div>
@@ -262,7 +261,7 @@ const Home = () => {
               </div>
 
               <div className="lg:w-2/5">
-                <img src={img16} alt="" />
+                <img loading="lazy" src={img16} alt="" />
               </div>
             </article>
           </SwiperSlide>
@@ -271,7 +270,7 @@ const Home = () => {
               <div className="p-10">
                 <div className="flex items-center gap-3">
                   <div className="w-1/10">
-                    <img src={img1} alt="" />
+                    <img loading="lazy" src={img1} alt="" />
                   </div>
                   <p className="text-[18px]">{t("Section1.Earbuds")}</p>
                 </div>
@@ -286,7 +285,7 @@ const Home = () => {
               </div>
 
               <div className="lg:w-2/5">
-                <img src={img17} alt="" />
+                <img loading="lazy" src={img17} alt="" />
               </div>
             </article>
           </SwiperSlide>
@@ -295,7 +294,7 @@ const Home = () => {
               <div className="p-8">
                 <div className="flex items-center gap-3">
                   <div className="w-1/10">
-                    <img src={img1} alt="" />
+                    <img loading="lazy" src={img1} alt="" />
                   </div>
                   <p className="text-[18px]">{t("Section1.Accessories")}</p>
                 </div>
@@ -310,7 +309,12 @@ const Home = () => {
               </div>
 
               <div className="lg:w-2/5 ">
-                <img className="w-[70%] mx-auto" src={img18} alt="" />
+                <img
+                  loading="lazy"
+                  className="w-[70%] mx-auto"
+                  src={img18}
+                  alt=""
+                />
               </div>
             </article>
           </SwiperSlide>
@@ -319,7 +323,7 @@ const Home = () => {
               <div className="p-8">
                 <div className="flex items-center gap-3">
                   <div className="w-1/10">
-                    <img src={img1} alt="" />
+                    <img loading="lazy" src={img1} alt="" />
                   </div>
                   <p className="text-[18px]">{t("Section1.Tablets")}</p>
                 </div>
@@ -334,7 +338,7 @@ const Home = () => {
               </div>
 
               <div className="lg:w-2/5">
-                <img src={img19} alt="" />
+                <img loading="lazy" src={img19} alt="" />
               </div>
             </article>
           </SwiperSlide>
@@ -369,7 +373,7 @@ const Home = () => {
         <div
           ref={scrollRef}
           style={{ scrollBehavior: "smooth" }}
-          className="flex lg:overflow-x-hidden overflow-x-scroll gap-5 py-10"
+          className="flex lg:overflow-x-hidden  overflow-x-scroll  gap-5 py-10"
         >
           {data1 &&
             data1.data.products.map((e) => {
@@ -415,7 +419,7 @@ const Home = () => {
                     <img
                       src={`https://store-api.softclub.tj/images/${e.image}`}
                       alt=""
-                      className="w-[100%] h-[250px] object-cover"
+                      className="w-[100%] h-[250px] object-contain"
                     />
 
                     <button
@@ -453,7 +457,7 @@ const Home = () => {
                   )}
 
                   <div className="flex items-center gap-2 text-base font-medium text-gray-500">
-                    <img src={img4} alt="" /> (88)
+                    <img loading="lazy" src={img4} alt="" /> (88)
                   </div>
                 </div>
               );
@@ -492,7 +496,7 @@ const Home = () => {
 
         <div
           ref={scrollRef2}
-          className="flex overflow-x-scroll lg:overflow-x-hidden gap-7 py-10"
+          className="flex  overflow-x-scroll  lg:overflow-x-hidden gap-7 py-10"
         >
           {data2 &&
             data2.data.map((e) => (
@@ -522,7 +526,7 @@ const Home = () => {
           </Link>
         </div>
 
-        <div className="flex gap-5  overflow-x-scroll overHidden justify-between py-10">
+        <div className="flex gap-5   overflow-x-scroll  overHidden justify-between py-10">
           {data1 &&
             data1.data.products.map((e) => {
               const isInWishList = wishList.some((item) => item.id === e.id);
@@ -567,7 +571,7 @@ const Home = () => {
                     <img
                       src={`https://store-api.softclub.tj/images/${e.image}`}
                       alt=""
-                      className="w-[100%] h-[250px] object-cover"
+                      className="w-[100%] h-[250px] object-contain"
                     />
 
                     <button
@@ -605,7 +609,7 @@ const Home = () => {
                   )}
 
                   <div className="flex items-center gap-2 text-base font-medium text-gray-500">
-                    <img src={img4} alt="" /> (88)
+                    <img loading="lazy" src={img4} alt="" /> (88)
                   </div>
                 </div>
               );
@@ -628,7 +632,7 @@ const Home = () => {
           </button>
         </div>
 
-        <img className="lg:w-2/4" src={img6} alt="" />
+        <img loading="lazy" className="lg:w-2/4" src={img6} alt="" />
       </section>
 
       <section className="sec6 px-[5%] lg:px-[10%] py-10">
@@ -637,7 +641,7 @@ const Home = () => {
           {t("OurProducts.2")}
         </p>
 
-        <div className="flex  overflow-x-scroll lg:overflow-x-hidden  lg:space-y-5 lg:grid grid-cols-4 gap-5">
+        <div className="flex   overflow-x-scroll  lg:overflow-x-hidden  lg:space-y-5 lg:grid grid-cols-4 gap-5">
           {data1 &&
             data1.data.products.map((e) => {
               const isInWishList = wishList.some((item) => item.id === e.id);
@@ -682,7 +686,7 @@ const Home = () => {
                     <img
                       src={`https://store-api.softclub.tj/images/${e.image}`}
                       alt=""
-                      className="w-[100%] h-[250px] object-cover"
+                      className="w-[100%] h-[250px] object-contain"
                     />
 
                     <button
@@ -720,7 +724,7 @@ const Home = () => {
                   )}
 
                   <div className="flex items-center gap-2 text-base font-medium text-gray-500">
-                    <img src={img4} alt="" /> (88)
+                    <img loading="lazy" src={img4} alt="" /> (88)
                   </div>
                 </div>
               );
@@ -739,7 +743,7 @@ const Home = () => {
 
         <div className="space-y-5 lg:grid grid-cols-2 gap-8 py-10">
           <div className="bg-black flex items-center justify-center pt-5 lg:pt-20 relative">
-            <img src={img8} alt="" />
+            <img loading="lazy" src={img8} alt="" />
 
             <div className="text-white absolute w-2/5 space-y-2.5 bottom-10 left-10">
               <p className="text-2xl font-semibold">{t("Featured.3")}</p>
@@ -752,7 +756,7 @@ const Home = () => {
 
           <div className="space-y-5 lg:grid  gap-8 ">
             <div className="bg-black flex items-center justify-center pt-5 relative">
-              <img src={img9} alt="" />
+              <img loading="lazy" src={img9} alt="" />
 
               <div className="text-white absolute w-2/5 space-y-2.5 bottom-10 left-10">
                 <p className="text-2xl font-semibold">{t("Featured.6")}</p>
@@ -765,7 +769,7 @@ const Home = () => {
 
             <div className="space-y-5 lg:grid grid-cols-2 gap-8 ">
               <div className="bg-black flex items-center justify-center pt-5 relative">
-                <img src={img10} alt="" />
+                <img loading="lazy" src={img10} alt="" />
 
                 <div className="text-white absolute w-4/5 space-y-2.5 bottom-10 left-10">
                   <p className="text-2xl font-semibold">{t("Featured.8")}</p>
@@ -777,7 +781,7 @@ const Home = () => {
               </div>
 
               <div className="bg-black flex items-center justify-center pt-5 h-[240px] relative">
-                <img src={img11} alt="" />
+                <img loading="lazy" src={img11} alt="" />
 
                 <div className="text-white absolute space-y-2.5 bottom-10 left-10">
                   <p className="text-2xl font-semibold">{t("Featured.10")}</p>
@@ -793,17 +797,17 @@ const Home = () => {
       </section>
       <section className="sec8 px-[5%] lg:px-[10%] py-10 space-y-5 lg:grid grid-cols-3 text-center">
         <div className="flex flex-col items-center ">
-          <img src={img12} alt="" />
+          <img loading="lazy" src={img12} alt="" />
           <p className="text-[18px] font-semibold py-2">{t("Delivery.1")}</p>
           <p className="text-[14px] ">{t("Delivery.2")}</p>
         </div>
         <div className="flex flex-col items-center ">
-          <img src={img13} alt="" />
+          <img loading="lazy" src={img13} alt="" />
           <p className="text-[18px] font-semibold py-2">{t("Delivery.3")}</p>
           <p className="text-[14px] ">{t("Delivery.4")}</p>
         </div>
         <div className="flex flex-col items-center ">
-          <img src={img14} alt="" />
+          <img loading="lazy" src={img14} alt="" />
           <p className="text-[18px] font-semibold py-2">{t("Delivery.5")}</p>
           <p className="text-[14px] ">{t("Delivery.6")}</p>
         </div>

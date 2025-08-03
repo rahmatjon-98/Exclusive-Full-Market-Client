@@ -22,13 +22,21 @@ import tj from "../shared/assets/images/tj.svg";
 import { useGetCartQuery } from "../entities/allApi";
 
 import { useUserId } from "./useUserId";
-import { LogOut, Menu, SendHorizontal, ShoppingBag, User, X } from "lucide-react";
+import {
+  LogOut,
+  Menu,
+  SendHorizontal,
+  ShoppingBag,
+  User,
+  X,
+} from "lucide-react";
 
 const Layout = () => {
   const { wishlistCount, cartCount, updateWishlistCount, updateCartCount } =
     useAppState();
 
   let userId = useUserId();
+  console.log(userId);
 
   const navigate = useNavigate();
 
@@ -43,17 +51,16 @@ const Layout = () => {
     setBars(!bars);
   }
 
-  let [account, setAccount] = useState(false);
-  function btnAccount() {
-    setAccount(!account);
-  }
-
   let [token] = useState(localStorage.getItem("access_token"));
 
   function wishlistOrLog() {
     navigate("/wishlist");
   }
 
+  let [account, setAccount] = useState(false);
+  function btnAccount() {
+    setAccount(!account);
+  }
   async function logOut() {
     localStorage.removeItem("access_token");
     localStorage.removeItem("wishList");
@@ -87,8 +94,8 @@ const Layout = () => {
   return (
     <div className="">
       <header className="fixed z-50 w-full bg-white flex items-center justify-between px-[8%] py-2.5 shadow shadow-[#0000001A]">
-        <img className="lg:block hidden" src={logo} alt="" />
-        
+        <img loading="lazy" className="lg:block hidden" src={logo} alt="" />
+
         <div className="flex items-center gap-2 lg:hidden">
           <button onClick={btnBars}>
             <Menu strokeWidth={1.5} />
@@ -228,7 +235,7 @@ const Layout = () => {
               className="outline-none w-40 text-[12px]"
             />
             <button>
-              <img src={img1} alt="" />
+              <img loading="lazy" src={img1} alt="" />
             </button>
           </div>
 
@@ -236,7 +243,7 @@ const Layout = () => {
             <div className="bg-[#DB4444] w-4 h-4 flex items-center justify-center absolute ml-4 -mt-1 text-[12px] text-white rounded-full">
               {wishlistCount}
             </div>
-            <img src={img2} alt="" />
+            <img loading="lazy" src={img2} alt="" />
           </button>
 
           <Link to={"cart"}>
@@ -244,7 +251,7 @@ const Layout = () => {
               <div className="bg-[#DB4444] w-4 h-4 flex items-center justify-center absolute ml-4 -mt-1 text-[12px] text-white rounded-full">
                 {cartCount}
               </div>
-              <img src={img3} alt="" />
+              <img loading="lazy" src={img3} alt="" />
             </button>
           </Link>
 
@@ -264,18 +271,27 @@ const Layout = () => {
               className="absolute z-5 top-20 right-[10%] flex flex-col gap-5 p-5 rounded lg:w-1/6 text-white bg-[#000000B8]"
             >
               <Link to={`/account/${userId}`}>
-                <button onClick={myAccount} className="flex items-center gap-5">
+                <button
+                  onClick={myAccount}
+                  className="flex items-center gap-5 w-full"
+                >
                   <User />
                   {t("Layout.8")}
                 </button>
               </Link>
 
-              <button onClick={myOrder} className="flex items-center gap-5">
+              <button
+                onClick={myOrder}
+                className="flex items-center gap-5 w-full"
+              >
                 <ShoppingBag />
                 {t("Layout.9")}
               </button>
 
-              <button onClick={logOut} className="flex items-center gap-5">
+              <button
+                onClick={logOut}
+                className="flex items-center gap-5 w-full"
+              >
                 <LogOut />
                 {t("Layout.10")}
               </button>
@@ -332,10 +348,10 @@ const Layout = () => {
           <div className="space-y-3 lg:w-1/5">
             <p className="text-xl font-medium">{t("Layout.28")}</p>
             <div className="flex gap-3">
-              <img src={img5} alt="" />
-              <img src={img6} alt="" />
-              <img src={img7} alt="" />
-              <img src={img8} alt="" />
+              <img loading="lazy" src={img5} alt="" />
+              <img loading="lazy" src={img6} alt="" />
+              <img loading="lazy" src={img7} alt="" />
+              <img loading="lazy" src={img8} alt="" />
             </div>
           </div>
         </article>

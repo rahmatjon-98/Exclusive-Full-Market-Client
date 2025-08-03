@@ -96,6 +96,7 @@ export const allApi = createApi({
     getUserData: builder.query({
       query: (id) => `UserProfile/get-user-profile-by-id?id=${id}`,
     }),
+    
     editUser: builder.mutation({
       query: (formData) => ({
         url: "UserProfile/update-user-profile",

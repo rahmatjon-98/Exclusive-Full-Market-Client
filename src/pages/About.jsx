@@ -43,42 +43,42 @@ const About = () => {
           </div>
 
           <div className="lg:w-1/2">
-            <img src={img1} alt="" />
+            <img loading="lazy" src={img1} alt="" />
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           <div className="border border-[#0000004D] text-center p-4 rounded-md space-y-2">
             <div className="text-2xl flex justify-center">
-              <img src={img2} alt="" />
+              <img loading="lazy" src={img2} alt="" />
             </div>
             <h2 className="text-3xl font-bold">10.5k</h2>
             <p className="text-base">{t("About.6")}</p>
           </div>
           <div className="border border-[#0000004D] text-center p-4 rounded-md bg-[#DB4444] text-white space-y-2">
             <div className="text-2xl flex justify-center">
-              <img src={img3} alt="" />
+              <img loading="lazy" src={img3} alt="" />
             </div>
             <h2 className="text-3xl font-bold">33k</h2>
             <p className="text-base">{t("About.7")}</p>
           </div>
           <div className="border border-[#0000004D] text-center p-4 rounded-md space-y-2">
             <div className="text-2xl flex justify-center">
-              <img src={img4} alt="" />
+              <img loading="lazy" src={img4} alt="" />
             </div>
             <h2 className="text-3xl font-bold">45.5k</h2>
             <p className="text-base">{t("About.8")}</p>
           </div>
           <div className="border border-[#0000004D] text-center p-4 rounded-md space-y-2">
             <div className="text-2xl flex justify-center">
-              <img src={img5} alt="" />
+              <img loading="lazy" src={img5} alt="" />
             </div>
             <h2 className="text-3xl font-bold">25k</h2>
             <p className="text-base">{t("About.9")}</p>
           </div>
         </div>
 
-        <div className="lg:grid  lg:grid-cols-3 gap-6 flex lg:overflow-x-hidden overflow-x-scroll">
+        <div className="lg:grid  lg:grid-cols-3 gap-6 flex lg:overflow-x-hidden  overflow-x-scroll ">
           {[
             { name: "Tom Cruise", img: img6 },
             { name: "Emma Watson", img: img7 },
@@ -100,9 +100,9 @@ const About = () => {
                 {e.name === "Will Smith" && t("About.12")}
               </p>
               <div className="flex items-center  gap-2 text-gray-500">
-                <img src={img9} alt="" />
-                <img src={img10} alt="" />
-                <img src={img11} alt="" />
+                <img loading="lazy" src={img9} alt="" />
+                <img loading="lazy" src={img10} alt="" />
+                <img loading="lazy" src={img11} alt="" />
               </div>
             </div>
           ))}
@@ -110,17 +110,17 @@ const About = () => {
 
         <section className=" space-y-5 lg:grid grid-cols-3 gap-10 py-10 ">
           <div className="flex flex-col items-center">
-            <img src={img12} alt="" />
+            <img loading="lazy" src={img12} alt="" />
             <p className="text-xl font-semibold py-2">{t("About.13")}</p>
             <p className="text-[14px] ">{t("About.14")}</p>
           </div>
           <div className="flex flex-col items-center">
-            <img src={img13} alt="" />
+            <img loading="lazy" src={img13} alt="" />
             <p className="text-xl font-semibold py-2">{t("About.15")}</p>
             <p className="text-[14px] ">{t("About.16")}</p>
           </div>
           <div className="flex flex-col items-center">
-            <img src={img14} alt="" />
+            <img loading="lazy" src={img14} alt="" />
             <p className="text-xl font-semibold py-2">{t("About.17")}</p>
             <p className="text-[14px] ">{t("About.18")}</p>
           </div>
