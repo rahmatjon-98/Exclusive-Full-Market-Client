@@ -1,17 +1,23 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { retry } from "@reduxjs/toolkit/query/react";
+
+const baseQuery = fetchBaseQuery({
+  baseUrl: "https://store-api.softclub.tj/",
+  prepareHeaders: (headers) => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      headers.set("Authorization", `Bearer ${token}`);
+    }
+    return headers;
+  },
+});
+
+// Обернём в retry (3 попытки, задержка между ними)
+const baseQueryWithRetry = retry(baseQuery, { maxRetries: 3 });
 
 export const allApi = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "https://store-api.softclub.tj/",
-    prepareHeaders: (headers) => {
-      const token = localStorage.getItem("access_token");
-      if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
-      }
-      return headers;
-    },
-  }),
+  baseQuery: baseQueryWithRetry,
 
   endpoints: (builder) => ({
     // Auth
@@ -96,7 +102,7 @@ export const allApi = createApi({
     getUserData: builder.query({
       query: (id) => `UserProfile/get-user-profile-by-id?id=${id}`,
     }),
-    
+
     editUser: builder.mutation({
       query: (formData) => ({
         url: "UserProfile/update-user-profile",

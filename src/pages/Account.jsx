@@ -18,10 +18,14 @@ const Account = () => {
   const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data, isSuccess, refetch } = useGetUserDataQuery(id);
+  // const { data, isSuccess, refetch } = useGetUserDataQuery(id);
+  const { data, isLoading, isError, error, refetch } = useGetUserDataQuery(id, {
+    refetchOnReconnect: true,
+    // pollingInterval: 2000,
+  });
   const [editUser] = useEditUserMutation();
   const [deleteUser] = useDeleteUserMutation();
-  
+
   useEffect(() => {
     if (data?.data) {
       setFirstName(data.data.firstName || "");
@@ -77,6 +81,24 @@ const Account = () => {
   const token = localStorage.getItem("access_token");
 
   let [ImageFull, setImageFull] = useState(false);
+
+  if (isLoading) {
+    return <p className="py-10 text-center">{t("general.1")}</p>;
+  }
+
+  if (isError) {
+    return (
+      <div className="flex flex-col items-center justify-center py-10 gap-5">
+        <p className="text-red-500">{t("general.2")}</p>
+        <button
+          onClick={refetch}
+          className="px-10 py-3 rounded bg-[#DB4444] text-white"
+        >
+          {t("general.3")}
+        </button>
+      </div>
+    );
+  }
   return (
     <div className="lg:pt-0 pt-10">
       <div className="flex items-center gap-3 pt-4 px-[10%]">

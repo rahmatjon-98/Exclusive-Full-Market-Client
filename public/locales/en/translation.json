@@ -1,4 +1,10 @@
 {
+  "general": {
+    "1": "Loading...",
+    "2": "Failed to load data. Check your internet connection.",
+    "3": "Try again"
+  },
+  
   "Home": {
     "1": "Languages",
     "2": "Translate",

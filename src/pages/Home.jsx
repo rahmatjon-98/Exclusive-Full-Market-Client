@@ -83,7 +83,16 @@ const Home = () => {
     }
   }
 
-  const { data: data1, refetch } = useGetProductsQuery();
+  const {
+    data: data1,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useGetProductsQuery({
+    refetchOnReconnect: true,
+    // pollingInterval: 2000,
+  });
   const { data: data2 } = useGetCategoryQuery();
   const { updateWishlistCount, updateCartCount } = useAppState();
 
@@ -127,6 +136,23 @@ const Home = () => {
 
   const [openSubCat, setOpenSubCat] = useState(null);
 
+  if (isLoading) {
+    return <p className="py-10 text-center">{t("general.1")}</p>;
+  }
+
+  if (isError) {
+    return (
+      <div className="flex flex-col items-center justify-center py-10 gap-5">
+        <p className="text-red-500">{t("general.2")}</p>
+        <button
+          onClick={refetch}
+          className="px-10 py-3 rounded bg-[#DB4444] text-white"
+        >
+          {t("general.3")}
+        </button>
+      </div>
+    );
+  }
   return (
     <div id="first" className="pt-10 lg:pt-0">
       {message && (
@@ -136,7 +162,7 @@ const Home = () => {
       )}
 
       <section className="sec1 px-[2%] lg:px-[10%] lg:py-10 lg:flex">
-        <article className="p-5 lg:block flex flex-wrap gap-3 lg:border-r border-[#0000001A] lg:mr-10 lg:w-1/5 lg:space-y-2">
+        <article className=" lg:block flex flex-wrap gap-3  lg:mr-10 lg:w-1/4 lg:space-y-2">
           <div className="lg:hidden flex justify-between border p-2.5 rounded w-full">
             <input
               type="text"
@@ -148,27 +174,27 @@ const Home = () => {
             </button>
           </div>
 
-          <div className="flex lg:flex-col flex-wrap lg:flex-nowrap gap-5 relative">
+          <div className="grid  grid-cols-1 overflow-y-scroll h-[320px] p-2.5 gap-5 ">
             {categories?.data?.map((e) => (
-              <div key={e.id} className="flex flex-col">
+              <div key={e.id} className={`${openSubCat == e.id ? "border rounded border-gray-300 p-3" : ""} flex flex-col`}>
                 <button
                   onClick={() =>
                     setOpenSubCat((id) => (id === e.id ? null : e.id))
                   }
-                  className="font-semibold text-left bg-[#F5F5F5] rounded py-1.5 px-2.5 lg:bg-inherit lg:p-0 flex justify-between"
+                  className="font-semibold outline-none text-left bg-[#F5F5F5] rounded py-1.5 px-2.5 lg:bg-inherit lg:p-0 flex justify-between"
                 >
-                  {e.categoryName}{" "}
+                  {e.categoryName}
                   <ChevronRight
                     className={`${openSubCat == e.id ? "rotate-90" : ""}`}
                   />
                 </button>
 
                 {openSubCat === e.id && e.subCategories.length > 0 && (
-                  <div className="flex flex-col gap-1 pl-4 absolute bg-white mt-8 lg:pr-10 lg:mt-5 p-3 z-20 rounded">
+                  <div className="flex flex-col gap-1 bg-white  py-2 rounded ">
                     {e.subCategories?.map((sub) => (
                       <button
                         key={sub.id}
-                        className="text-sm text-left bg-[#F5F5F5] rounded py-1.5 px-2.5 cursor-pointer lg:bg-inherit lg:p-0"
+                        className="text-sm text-left bg-[#F5F5F5] rounded py-1.5 px-2.5 cursor-pointer lg:bg-inherit lg:p-0 hover:underline"
                       >
                         {sub.subCategoryName}
                       </button>

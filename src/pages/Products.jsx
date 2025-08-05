@@ -48,7 +48,14 @@ const Products = () => {
     setFilters(filters);
   }, []);
 
-  const { data } = useGetProductsQuery(filterParams);
+  const { data, isLoading, isError, error, refetch } = useGetProductsQuery(
+    filterParams,
+    {
+      refetchOnReconnect: true,
+      // pollingInterval: 2000,
+    }
+  );
+
   const [addToCart] = useAddToCartMutation();
   const [message, setMessage] = useState("");
 
@@ -77,6 +84,24 @@ const Products = () => {
     setWishList(updatedList);
     localStorage.setItem("wishList", JSON.stringify(updatedList));
     updateWishlistCount();
+  }
+
+  if (isLoading) {
+    return <p className="py-10 text-center">{t("general.1")}</p>;
+  }
+
+  if (isError) {
+    return (
+      <div className="flex flex-col items-center justify-center py-10 gap-5">
+        <p className="text-red-500">{t("general.2")}</p>
+        <button
+          onClick={refetch}
+          className="px-10 py-3 rounded bg-[#DB4444] text-white"
+        >
+          {t("general.3")}
+        </button>
+      </div>
+    );
   }
 
   return (
