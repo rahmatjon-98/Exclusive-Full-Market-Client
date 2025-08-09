@@ -162,7 +162,7 @@ const Home = () => {
       )}
 
       <section className="sec1 px-[2%] lg:px-[10%] lg:py-10 lg:flex">
-        <article className=" lg:block flex flex-wrap gap-3  lg:mr-10 lg:w-1/4 lg:space-y-2">
+        <article className=" lg:block space-y-3 lg:mr-10 lg:w-1/4 lg:space-y-2">
           <div className="lg:hidden flex justify-between border p-2.5 rounded w-full">
             <input
               type="text"
@@ -174,9 +174,14 @@ const Home = () => {
             </button>
           </div>
 
-          <div className="grid  grid-cols-1 overflow-y-scroll h-[320px] p-2.5 gap-5 ">
+          <div className="grid  grid-cols-1 overflow-y-scroll h-[320px] p-2.5 my-4 gap-5 ">
             {categories?.data?.map((e) => (
-              <div key={e.id} className={`${openSubCat == e.id ? "border rounded border-gray-300 p-3" : ""} flex flex-col`}>
+              <div
+                key={e.id}
+                className={`${
+                  openSubCat == e.id ? "border rounded border-gray-300 p-3" : ""
+                } flex flex-col`}
+              >
                 <button
                   onClick={() =>
                     setOpenSubCat((id) => (id === e.id ? null : e.id))
